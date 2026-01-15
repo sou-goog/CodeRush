@@ -36,6 +36,19 @@ export const connectRepository = async (owner: string, repo: string, githubId: n
     }
 
     // TODO: CHECK IF USER CAN CONNECT MORE REPO
+    
+    const existingRepo = await prisma.repository.findUnique({
+        where:{
+            githubId: BigInt(githubId)
+        }
+    })
+
+    if(existingRepo){
+        if(existingRepo.userId !== session.user.id){
+            throw new Error("Repository already connected by another user")
+        }
+        return
+    }
 
     const webhook = await createWebhook(owner , repo)
 

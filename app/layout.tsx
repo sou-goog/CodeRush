@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-providers";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "CodeRush - AI Code Reviewer",
+    title: "CodeLax - AI Code Reviewer",
     description: "Intelligent AI-powered code review platform",
 };
 
@@ -37,6 +38,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     {children}
+                <Toaster/>
                 </ThemeProvider>
                 </QueryProvider>
             </body>

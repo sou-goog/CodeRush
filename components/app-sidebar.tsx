@@ -61,7 +61,7 @@ export const AppSidebar = () => {
     ]
 
     const isActive = (url: string) => {
-        return pathname === url || pathname.startsWith(url + "/dashboard");
+        return pathname === url || (url !== "/dashboard" && pathname.startsWith(url + "/"));
     }
 
     if (!mounted || !session) return null;
@@ -106,11 +106,8 @@ export const AppSidebar = () => {
                             <SidebarMenuButton 
                                 asChild 
                                 tooltip={item.title} 
-                                className={`h-11 px-4 rounded-lg transition-all duration-200 ${
-                                    isActive(item.url) 
-                                        ? "bg-sidebar-accent text-sidebar-accent-foreground font-semibold" 
-                                        : "hover:bg-sidebar-accent/60 text-sidebar-foreground"
-                                }`}
+                                isActive={isActive(item.url)}
+                                className="h-11 px-4 rounded-lg transition-all duration-200 hover:bg-sidebar-accent/60"
                             >
                                 <Link href={item.url} className="flex items-center gap-3">
                                     <item.icon className="w-5 h-5 shrink-0" />
